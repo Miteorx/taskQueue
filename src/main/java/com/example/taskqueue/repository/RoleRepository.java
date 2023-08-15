@@ -14,12 +14,12 @@ public class RoleRepository {
 
   private static final Map<String, Role> ROLES = Stream.of(
           Role.builder()
-              .id("ROLE_USER")
-              .privileges(List.of())
+              .id("USER")
+              .privileges(List.of("GET_TASK"))
               .build(),
           Role.builder()
-              .id("ROLE_ADMIN")
-              .privileges(List.of("USER_MANAGEMENT"))
+              .id("ADMIN")
+              .privileges(List.of("CREATE_TASK"))
               .build()
       )
       .collect(Collectors.toUnmodifiableMap(

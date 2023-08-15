@@ -36,7 +36,7 @@ public class UserService implements UserDetailsService {
       userRepository.save(User.builder()
           .user("admin")
           .password(passwordEncoder.encode("admin"))
-          .role("ROLE_ADMIN")
+          .role("ADMIN")
           .enabled(true)
           .build()
       );
@@ -47,17 +47,23 @@ public class UserService implements UserDetailsService {
       userRepository.save(User.builder()
           .user("user")
           .password(passwordEncoder.encode("user"))
-          .role("ROLE_USER")
+          .role("USER")
           .enabled(true)
           .build()
       );
     }
   }
 
-  public List<User> getAllWorker(){
-    return userRepository.findUsersByRole("USER");
+  public User getUserByUsername(String username) {
+    Optional<User> user = userRepository.findByUser(username);
+    if (user.isPresent()) {
+      return user.get();
+    } else throw new UsernameNotFoundException("User not found");
   }
 
+  public List<User> getAllWorker() {
+    return userRepository.findUsersByRole("USER");
+  }
 
 
   @Override

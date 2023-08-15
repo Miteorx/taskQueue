@@ -9,22 +9,19 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http
         .authorizeHttpRequests(authRequests -> authRequests
-            .requestMatchers("/", "/login").permitAll()
-            .requestMatchers("/task/create").hasRole("ADMIN")
+            .requestMatchers("/login").permitAll()
+            .requestMatchers("/task/create").hasAuthority("PRIV_CREATE_TASK")
+            .requestMatchers("/task/mytasks").hasAuthority("PRIV_GET_TASK")
             .anyRequest().authenticated()
         )
         .formLogin(form -> form
             .loginPage("/login").permitAll()
             .defaultSuccessUrl("/")
-        )
-        .logout(logout -> logout
-            .logoutUrl("/logout")
-            .logoutSuccessUrl("/login?logout").permitAll()
-            .and()
         )
         .build();
   }

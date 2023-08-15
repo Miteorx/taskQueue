@@ -35,4 +35,24 @@ public class TaskService {
         .user(user)
         .build());
   }
+
+  public Task getFirstTask(User user){
+    Optional<Task> optionalTask = taskRepository.findFirstByUserOrderById(user);
+    if (optionalTask.isPresent()) {
+      return optionalTask.get();
+    }
+    else {
+      Task newTask = taskRepository.findFirstByUserIsNullOrderById().get();
+      newTask.setUser(user);
+      return taskRepository.save(newTask);
+    }
+  }
+
+  public void deleteTaskById(Long id){
+    taskRepository.deleteById(id);
+  }
+
+  public List<Task> getPrivateTasks(User user){
+    return taskRepository.findTaskByUser(user);
+  }
 }
