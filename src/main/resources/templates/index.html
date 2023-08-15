@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+  <title>Getting Started: Serving Web Content</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="alert alert-info mt-2" th:each="el : ${taskList}">
+  <h3 th:text="'Task : ' + ${el.name}"></h3>
+
+  <th:block th:if="${el.user}">
+  <p th:text="'Worker : ' +${el.user.user}"></p>
+  </th:block>
+
+  <th:block th:unless="${el.user}">
+    <p th:text="'Worker doesnt selected'"></p>
+  </th:block>
+</div>
+
+</body>
+</html>
