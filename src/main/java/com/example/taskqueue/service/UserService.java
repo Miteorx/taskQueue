@@ -5,6 +5,7 @@ import com.example.taskqueue.model.User;
 import com.example.taskqueue.repository.RoleRepository;
 import com.example.taskqueue.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -47,6 +48,17 @@ public class UserService implements UserDetailsService {
       userRepository.save(User.builder()
           .user("user")
           .password(passwordEncoder.encode("user"))
+          .role("USER")
+          .enabled(true)
+          .build()
+      );
+    }
+
+    Optional<User> secondUser = userRepository.findByUser("user2");
+    if (secondUser.isEmpty()) {
+      userRepository.save(User.builder()
+          .user("user2")
+          .password(passwordEncoder.encode("user2"))
           .role("USER")
           .enabled(true)
           .build()

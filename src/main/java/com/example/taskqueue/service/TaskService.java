@@ -5,6 +5,7 @@ import com.example.taskqueue.model.Task;
 import com.example.taskqueue.model.User;
 import com.example.taskqueue.repository.TaskRepository;
 import com.example.taskqueue.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
